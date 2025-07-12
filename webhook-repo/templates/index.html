@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>GitHub Events</title></head>
+<body>
+    <h2>GitHub Activity Log</h2>
+    <ul id="log"></ul>
+
+    <script>
+        function fetchData() {
+            fetch('/get-latest')
+                .then(res => res.json())
+                .then(data => {
+                    const log = document.getElementById('log');
+                    log.innerHTML = '';
+                    data.forEach(msg => {
+                        const li = document.createElement('li');
+                        li.innerText = msg;
+                        log.appendChild(li);
+                    });
+                });
+        }
+
+        fetchData();
+        setInterval(fetchData, 15000);
+    </script>
+</body>
+</html>
